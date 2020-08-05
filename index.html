@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+
+    html { font-size: 22px; }
+    body { padding: 1rem; background-color: #EFEFEF;}
+
+    .card {
+        flex-direction: row;
+        color: white;
+        height: 4rem;
+        z-index: 1;
+    }
+
+    .grid_container {
+        width: 70%;
+    }
+
+    .cards {
+        display: grid;
+        text-align: center;
+        font: 3em sans-serif;
+    }
+
+    .right_section {
+        position: absolute;
+        right : 20px;
+        top : 1.5rem;
+    }
+    
+    .button_container {
+        height: 40px;
+        width: 120px;
+        background-color: #73C3DC;
+        color : white;
+        border-bottom-width: 3px;
+        border-bottom-color: #2A8CAB;
+        border-top-color: #73C3DC;
+        border-right-color: #73C3DC;
+        border-left-color: #73C3DC;
+        border-radius: 8px;
+    }
+
+    @media (max-width: 380px) {
+        .cards { grid-template-columns: repeat(1, 1fr);}
+        .grid_container { width: 100%; margin-top: 80px}
+        .right_section { position: absolute ; top : 5; right: 18%;}
+        body{background-color: white;}
+        .card{ color : black; margin-top: 2px;}
+    }
+
+    @media (min-width: 900px) {
+    .cards { grid-template-columns: repeat(3, 1fr); }
+    }
+    </style>
+</head>
+<body onresize="reloadPage();">
+    <div class = "grid_container">
+        <div class="cards">
+            <div class="card" id = "1">1</div>
+            <div class="card" id = "2">2</div>
+            <div class="card" id = "3">3</div>
+            <div class="card" id = "4">4</div>
+            <div class="card" id = "5">5</div>
+            <div class="card" id = "6">6</div>
+            <div class="card" id = "7">7</div>
+            <div class="card" id = "8">8</div>
+            <div class="card" id = "9">9</div>
+        </div>
+    </div>
+  <div class = "right_section">
+    <input type="button" onclick="sort();" value="Sort" id="sort" class="button_container">
+    <input type="button" onclick="shuffle();" value="Shuffle" id="shuffle" class="button_container">
+  </div>
+
+<script>
+
+    function reloadPage() {
+        location.reload();
+    }
+
+    window.onload = function() {
+        sort();
+    };
+
+    function getColor(index){
+        var colors = ["#6E98A8", "#2B8DAC", "#2E444D", "#2B8DAC", "#2E444D", "#BFBFBF", "#BFBFBF", "#6D97A7", "#2F454E"]
+        return colors[index-1];
+    }
+
+    function shuffleArray(array) {
+        for (var i = array.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+        }
+        return array;
+    }
+
+    function sort(){
+        for(var i = 1; i<=9;i++){
+            document.getElementById(i).innerHTML = i;
+            if(screen.width >= 960){
+                document.getElementById(i).style.backgroundColor = getColor(i)
+            }
+            else{
+                document.getElementById(i).style.backgroundColor =  "#EFEFEF";
+                document.getElementById(i).style.borderLeft = "10px solid" + getColor(i);
+            }
+        }
+    }
+
+    function shuffle() {
+        var array = [1,2,3,4,5,6,7,8,9]
+        array = shuffleArray(array)
+        for(var i = 1; i<=9;i++){
+            document.getElementById(i).innerHTML = array[i-1];
+            if(screen.width >= 960){
+                document.getElementById(i).style.backgroundColor = getColor(array[i-1])
+            }
+            else{
+                document.getElementById(i).style.backgroundColor =  "#EFEFEF";
+                document.getElementById(i).style.borderLeft = "10px solid" + getColor(array[i-1]);
+            }
+        }
+    }   
+</script>
+</body>
+</html>
